@@ -1,0 +1,18 @@
+.nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+
+    &-list__global, 
+    &-list__signup, 
+    &-list__user {
+        list-style-type: none;
+        display: flex;
+    }
+
+    &-item__global:nth-last-child(2),
+    &-item__signup:nth-last-child(2),
+    &-item__user:nth-last-child(2) {
+        margin-right: 10px;
+    }
+}
