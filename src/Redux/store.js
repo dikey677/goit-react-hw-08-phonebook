@@ -11,9 +11,9 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { authReducer } from "./auth";
+import authReducer from "./auth/auth-slice";
 
-//Redux Toolkit
+// Redux Toolkit
 const authPersistConfig = {
   key: "auth",
   storage,
@@ -26,11 +26,14 @@ const store = configureStore({
     // Сохранение данных с учетом параметров и редюсера
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }).concat(logger), // Добавление логгера в midleware (распыляет весь middleware и добавляет логгер для отслеживания состояний)
+    getDefaultMiddleware(
+      {
+        serializableCheck: {
+          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+      } // Добавление логгера в midleware (распыляет весь middleware и добавляет логгер для отслеживания состояний)
+    ).concat(logger),
+
   devTools: process.env.NODE_ENV === "development",
 });
 
