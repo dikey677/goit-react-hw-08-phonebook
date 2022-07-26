@@ -1,12 +1,15 @@
+import { useSelector } from 'react-redux/';
 import { Route, Routes } from 'react-router-dom'
-import { useTransition } from "react";
-import Navigation from './Navigation';
 import Register from './Views/Register';
 import Login from './Views/Login';
 import Home from './Views/Home';
 import Contacts from './Views/Contacts';
-import Loader from './Loader';
+import Navigation from './Navigation';
+import AuthNav from './AuthNav';
+import UserMenu from './Views/UserMenu'
+import authSelectors from '../Redux/auth/auth-selectors'
 
+// import Loader from './Loader';
 // import { lazy, Suspense } from 'react'
 // const Navigation = lazy(() => import('./Navigation'))
 // const Register = lazy(() => import('./Views/Register'))
@@ -17,23 +20,26 @@ import Loader from './Loader';
 
 
 function App() {
- const [isPending, startTransition] = useTransition()
+  const isLoggedIn = useSelector(authSelectors.getIsLoggedIn)
+  console.log(isLoggedIn)
+
   return (
     <div className="app">
-        {isPending && <Loader/>}
-        <header className="header">
+      <header className="header">
+        <nav className="nav">
           <Navigation />
-        </header>
-        
-        <main className="main">
-            <Routes>
-              <Route path="/" element={<Home />} exact />
-              <Route path="/contacts" element={<Contacts />}  />
-              <Route path="/register" element={<Register />}  />
-              <Route path="/login" element={<Login />}  />
-            </Routes>
-        </main>
-     
+          {isLoggedIn ? <UserMenu /> : <AuthNav />}
+        </nav>
+      </header>
+      
+      <main className="main">
+          <Routes>
+            <Route path="/" element={<Home />} exact />
+            <Route path="/contacts" element={<Contacts />}  />
+            <Route path="/register" element={<Register />}  />
+            <Route path="/login" element={<Login />}  />
+          </Routes>
+      </main>
     </div>
   );
 }

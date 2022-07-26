@@ -1,10 +1,10 @@
 import { useState } from "react";
-// import { useDispatch } from "react-redux";
-// import register from "../../Redux/auth/auth-operations";
+import { useDispatch } from "react-redux";
+import authOperations from "../../Redux/auth/auth-operations";
 
 
 const Register = () => {
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
    
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -12,21 +12,21 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        // dispatch(register({name, email, password}))
+        dispatch(authOperations.register({name, email, password}))
         setName('')
         setEmail('')
         setPassword('')
     }
 
     return (
-            <form className="form">
+            <form className="form" onSubmit={handleSubmit}>
                 <fieldset className="form-fieldset">
                     <legend className="form-legend">Регистрация пользователя</legend>
                     <label className="form-label">
                         Введите имя пользователя
                     <input
                         type="text"
-                        placeholder="Имя"
+                        placeholder="Name"
                         name="name"
                         value={name}
                         onChange={(e) => setName(e.currentTarget.value)}
