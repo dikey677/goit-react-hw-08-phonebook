@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux/';
+import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom'
 import Register from './Views/Register';
 import Login from './Views/Login';
@@ -8,6 +8,7 @@ import Navigation from './Navigation';
 import AuthNav from './AuthNav';
 import UserMenu from './Views/UserMenu'
 import authSelectors from '../Redux/auth/auth-selectors'
+import Warning from "./Warning"
 
 // import Loader from './Loader';
 // import { lazy, Suspense } from 'react'
@@ -35,7 +36,7 @@ function App() {
       <main className="main">
           <Routes>
             <Route path="/" element={<Home />} exact />
-            <Route path="/contacts" element={<Contacts />}  />
+            <Route path="/contacts" element={isLoggedIn ? <Contacts /> : <Warning />}  />
             <Route path="/register" element={<Register />}  />
             <Route path="/login" element={<Login />}  />
           </Routes>
