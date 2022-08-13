@@ -14,19 +14,18 @@ const Contacts = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(contactsOperations.createContacts({ name, number }))
-
         setName('')
         setNumber('')
     }
 
     const result = useSelector((state) => state.contacts);
-    console.log('useSelector((state) => state)', result)
+    console.log('useSelector((state) => state)', result)  
 
     return (
-        <div className="contacts" style={{ display: 'flex', flexFlow: 'column', gap: '1rem' }}>
+        <div className="contacts">
             <h1>Список моих контактов</h1>
 
-            <form className="form-contacts" onSubmit={handleSubmit} style={{ display: 'flex', flexFlow: 'column', gap: '1rem' }}>
+            <form className="form-contacts" onSubmit={handleSubmit}>
                 <fieldset className="form-contacts__fieldset">
                     <legend className="form-contacts__legend">Создать новый контакт</legend>
                     <label>
@@ -45,11 +44,17 @@ const Contacts = () => {
                     </label>
                 </fieldset>
 
-                <button type="submit" style={{ width: 'fit-content' }}>Создать контакт</button>
+                <button type="submit">Создать контакт</button>
             </form>
 
             <ul>
-                {result.map((contact) => <li>{`${contact.number}: ${contact.name}`}</li>)}
+                {result.length > 0 && result.map(contact =>
+                    <li key={contact.id}>
+                        <span>
+                            {`${contact.name}: ${contact.number}`}
+                        </span>
+                        <button type="button">Удалить</button>
+                    </li>)}
             </ul>
 
 

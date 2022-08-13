@@ -8,8 +8,6 @@ import configureStore from "./Redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-console.log("РЕЗУЛЬТАТ STORE", configureStore.store.getState());
-
 root.render(
   <React.StrictMode>
     <Provider store={configureStore.store}>

@@ -1,4 +1,5 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom'
 import Register from './Views/Register';
 import Login from './Views/Login';
@@ -9,20 +10,18 @@ import AuthNav from './AuthNav';
 import UserMenu from './Views/UserMenu'
 import authSelectors from '../Redux/auth/auth-selectors'
 import Warning from "./Warning"
-
-// import Loader from './Loader';
-// import { lazy, Suspense } from 'react'
-// const Navigation = lazy(() => import('./Navigation'))
-// const Register = lazy(() => import('./Views/Register'))
-// const Login = lazy(() => import('./Views/Login'))
-// const Home = lazy(() => import('./Views/Home'))
-// const Contacts = lazy(() => import('./Views/Contacts'))
-// const Loader = lazy(() => import('./Loader'))
+import authOperations from '../Redux/auth/auth-operations';
 
 
 function App() {
   const isLoggedIn = useSelector(authSelectors.getIsLoggedIn)
   console.log(isLoggedIn)
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(authOperations.fetchCurrentUser())
+  }, [dispatch])
 
   return (
     <div className="app">

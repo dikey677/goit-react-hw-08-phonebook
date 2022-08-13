@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit/";
+import { createSlice } from "@reduxjs/toolkit";
 import contactsOperations from "../../Redux/contacts/contacts-operations";
 
 const initialState = {
@@ -7,22 +7,20 @@ const initialState = {
   number: null,
 };
 
-// console.log(initialState);
-
 const contactsSlice = createSlice({
   name: "contacts",
   initialState,
   extraReducers: (builder) => {
     builder.addCase(
-      contactsOperations.fetchContacts.fulfilled,
-      (state, action) => {
-        return action.payload;
-      }
-    );
-    builder.addCase(
       contactsOperations.createContacts.fulfilled,
       (state, action) => {
         return [...state, action.payload];
+      }
+    );
+    builder.addCase(
+      contactsOperations.fetchContacts.fulfilled,
+      (state, action) => {
+        return action.payload;
       }
     );
   },
