@@ -1,15 +1,13 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import contactsOperations from "../../Redux/contacts/contacts-operations";
-import contactSelectors from "../../Redux/contacts/contacts-selectors";
 
 const Contacts = () => {
     const [name, setName] = useState('')
     const [number, setNumber] = useState('')
     const dispatch = useDispatch()
 
-
-      useEffect(() => {
+    useEffect(() => {
         dispatch(contactsOperations.fetchContacts())
     }, [dispatch])
 
@@ -21,36 +19,40 @@ const Contacts = () => {
         setNumber('')
     }
 
-    // const result = useSelector(contactSelectors.getFetchContacts)
-    // console.log('РЕЗУЛЬТАТ', result)
+    const result = useSelector((state) => state.contacts);
+    console.log('useSelector((state) => state)', result)
 
     return (
-        <div className="contacts">
+        <div className="contacts" style={{ display: 'flex', flexFlow: 'column', gap: '1rem' }}>
             <h1>Список моих контактов</h1>
 
-            <form className="form-contacts" onSubmit={handleSubmit}>
+            <form className="form-contacts" onSubmit={handleSubmit} style={{ display: 'flex', flexFlow: 'column', gap: '1rem' }}>
                 <fieldset className="form-contacts__fieldset">
                     <legend className="form-contacts__legend">Создать новый контакт</legend>
                     <label>
-                        <p>ФИО</p> 
+                        <p>ФИО</p>
                         <input
+                            value={name}
                             type="text"
                             onChange={e => setName(e.currentTarget.value)}
                         />
                         <p>Контактный номер телефона</p>
                         <input
+                            value={number}
                             type="number"
                             onChange={e => setNumber(e.currentTarget.value)}
                         />
                     </label>
                 </fieldset>
-                <button type="submit">Создать контакт</button>
+
+                <button type="submit" style={{ width: 'fit-content' }}>Создать контакт</button>
             </form>
 
             <ul>
-                <li>{}: {}</li>
+                {result.map((contact) => <li>{`${contact.number}: ${contact.name}`}</li>)}
             </ul>
-            
+
+
         </div>
     )
 }

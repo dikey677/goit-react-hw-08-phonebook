@@ -12,12 +12,19 @@ const initialState = {
 const contactsSlice = createSlice({
   name: "contacts",
   initialState,
-  extraReducers: {
-    [contactsOperations.createContacts.fulfilled](state, action) {
-      state.id = action.payload.id;
-      state.name = action.payload.name;
-      state.number = action.payload.number;
-    },
+  extraReducers: (builder) => {
+    builder.addCase(
+      contactsOperations.fetchContacts.fulfilled,
+      (state, action) => {
+        return action.payload;
+      }
+    );
+    builder.addCase(
+      contactsOperations.createContacts.fulfilled,
+      (state, action) => {
+        return [...state, action.payload];
+      }
+    );
   },
 });
 
