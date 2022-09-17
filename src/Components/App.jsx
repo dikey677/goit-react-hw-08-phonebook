@@ -9,9 +9,9 @@ import Navigation from './Navigation';
 import AuthNav from './AuthNav';
 import UserMenu from './Views/UserMenu'
 import authSelectors from '../Redux/auth/auth-selectors'
-import Warning from "./Warning"
 import authOperations from '../Redux/auth/auth-operations';
-
+import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
 
 function App() {
   const isLoggedIn = useSelector(authSelectors.getIsLoggedIn)
@@ -33,11 +33,42 @@ function App() {
       </header>
       
       <main className="main">
-          <Routes>
-            <Route path="/" element={<Home />} exact />
-            <Route path="/contacts" element={isLoggedIn ? <Contacts /> : <Warning />}  />
-            <Route path="/register" element={<Register />}  />
-            <Route path="/login" element={<Login />}  />
+        <Routes>
+         
+            {/* <Route exact path="/" element={<Home />}  />
+            <Route  path="/register" element={<Register />}  />
+            <Route  path="/login" element={<Login />} /> */}
+            {/* <Route path="/contacts" element={<Contacts />}  /> */}
+             
+            
+          
+            <Route exact path="/" element={
+                <PublicRoute>
+                  <Home />
+                </PublicRoute>
+                }
+            />
+            
+            <Route exact path="/Register"  element={
+                <PublicRoute restricted>
+                  <Register />
+                </PublicRoute>
+                } 
+            />
+            
+            <Route exact path="/login"  element={
+                <PublicRoute restricted>
+                  <Login />
+                </PublicRoute>
+                } 
+            />
+
+            <Route exact path="/contacts" element={
+                <PrivateRoute>
+                  <Contacts />
+                </PrivateRoute>
+                }
+            />
           </Routes>
       </main>
     </div>
