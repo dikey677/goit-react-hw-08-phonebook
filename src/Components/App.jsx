@@ -15,6 +15,7 @@ import PublicRoute from './PublicRoute';
 
 function App() {
   const isLoggedIn = useSelector(authSelectors.getIsLoggedIn)
+  const isFetchingCurrentUser = useSelector(authSelectors.getIsFetchingCurrentUser)
   console.log(isLoggedIn)
 
   const dispatch = useDispatch()
@@ -23,7 +24,7 @@ function App() {
     dispatch(authOperations.fetchCurrentUser())
   }, [dispatch])
 
-  return (
+  return (!isFetchingCurrentUser && (
     <div className="app">
       <header className="header">
         <nav className="nav">
@@ -31,6 +32,7 @@ function App() {
           {isLoggedIn ? <UserMenu /> : <AuthNav />}
         </nav>
       </header>
+      
       
       <main className="main">
         <Routes>
@@ -49,7 +51,7 @@ function App() {
                 }
             />
             
-            <Route exact path="/Register"  element={
+            <Route exact path="/register"  element={
                 <PublicRoute restricted>
                   <Register />
                 </PublicRoute>
@@ -64,7 +66,7 @@ function App() {
             />
 
             <Route exact path="/contacts" element={
-                <PrivateRoute>
+                <PrivateRoute >
                   <Contacts />
                 </PrivateRoute>
                 }
@@ -72,7 +74,7 @@ function App() {
           </Routes>
       </main>
     </div>
-  );
+  ))
 }
 
 export default App;
