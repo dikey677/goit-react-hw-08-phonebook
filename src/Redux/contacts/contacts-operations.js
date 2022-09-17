@@ -26,5 +26,20 @@ const createContacts = createAsyncThunk(
   }
 );
 
+const deleteContact = createAsyncThunk(
+  "contacts/deleteContact",
+  async (credentials) => {
+    try {
+      const { data } = await axios.delete(
+        `/contacts/${credentials}`,
+        credentials
+      );
+      return data;
+    } catch (error) {
+      // CONTACT: добавить обработку ошибки error.message
+    }
+  }
+);
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { fetchContacts, createContacts };
+export default { fetchContacts, createContacts, deleteContact };
