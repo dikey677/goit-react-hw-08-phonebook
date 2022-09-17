@@ -19,13 +19,12 @@ const Contacts = () => {
     }
 
     const handleDeleteContact = (contactId) => {
-        dispatch(contactsOperations.deleteContact(contactId))
+        dispatch(contactsOperations.deleteContacts(contactId))
     };
 
    
 
     const result = useSelector((state) => state.contacts);
-    console.log('useSelector((state) => state)', result)  
 
     return (
         <div className="contacts">
@@ -59,7 +58,7 @@ const Contacts = () => {
                         <span>
                             {`${contact.name}: ${contact.number}`}
                         </span>
-                        <button type="button" onClick={() => handleDeleteContact(contact.id)}>Удалить</button>
+                        <button type="button" onClick={()=>handleDeleteContact(contact.id)}>Удалить</button>
                     </li>)}
             </ul>
 

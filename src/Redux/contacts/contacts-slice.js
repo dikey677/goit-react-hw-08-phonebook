@@ -18,6 +18,12 @@ const contactsSlice = createSlice({
       }
     );
     builder.addCase(
+      contactsOperations.deleteContacts.fulfilled,
+      (state, action) => {
+        return action.payload;
+      }
+    );
+    builder.addCase(
       contactsOperations.fetchContacts.fulfilled,
       (state, action) => {
         return action.payload;

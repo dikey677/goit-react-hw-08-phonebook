@@ -26,7 +26,7 @@ const createContacts = createAsyncThunk(
   }
 );
 
-const deleteContact = createAsyncThunk(
+const deleteContacts = createAsyncThunk(
   "contacts/deleteContact",
   async (credentials) => {
     try {
@@ -34,6 +34,7 @@ const deleteContact = createAsyncThunk(
         `/contacts/${credentials}`,
         credentials
       );
+      console.log(credentials);
       return data;
     } catch (error) {
       // CONTACT: добавить обработку ошибки error.message
@@ -42,4 +43,4 @@ const deleteContact = createAsyncThunk(
 );
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { fetchContacts, createContacts, deleteContact };
+export default { fetchContacts, createContacts, deleteContacts };
