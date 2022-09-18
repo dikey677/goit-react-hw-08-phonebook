@@ -27,14 +27,11 @@ const createContacts = createAsyncThunk(
 );
 
 const deleteContacts = createAsyncThunk(
-  "contacts/deleteContact",
-  async (credentials) => {
+  "contacts/deleteContacts",
+  async (contactId) => {
     try {
-      const { data } = await axios.delete(
-        `/contacts/${credentials}`,
-        credentials
-      );
-      console.log(credentials);
+      const { data } = await axios.delete(`/contacts/${contactId}`, contactId);
+      console.log("ContactId: ", contactId);
       return data;
     } catch (error) {
       // CONTACT: добавить обработку ошибки error.message

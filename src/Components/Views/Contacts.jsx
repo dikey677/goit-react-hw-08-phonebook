@@ -58,7 +58,7 @@ const Contacts = () => {
                         <span>
                             {`${contact.name}: ${contact.number}`}
                         </span>
-                        <button type="button" onClick={()=>handleDeleteContact(contact.id)}>Удалить</button>
+                        <button type="button" onClick={() => handleDeleteContact(contact.id)}>Удалить</button>
                     </li>)}
             </ul>
 
